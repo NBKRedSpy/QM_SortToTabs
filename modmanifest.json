@@ -1,0 +1,7 @@
+{
+    "UniqueModName": "nbk_redspy_QM_SortToTabs",
+    "Assemblies": [
+        "QM_SortToTabs.dll"
+    ],
+    "Dependencies": []
+}
