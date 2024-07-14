@@ -11,7 +11,7 @@ Also adds a shortcut to run the tab sort.  Defaults to S, but can be configured.
 # Warning
 This mod is in *beta*.
 
-Another mod which also moved items caused game locks on mission end.  I believe this mod will not have that issue, but it would be best to backup the save game.
+Another mod which also moved items caused game locks on mission end.  I believe this mod will not have that issue, but it would be best to backup the game save.
 
 If you wish to test the mod, make sure to backup your saves which are located at `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph`
 
