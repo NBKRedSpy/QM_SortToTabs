@@ -14,6 +14,7 @@ There are default rules, but if there are any suggestions for better defaults, p
 
 ## Default Rules
 The default rules are:
+
 |Item|Destination Tab|
 |--|--|
 |Weapons|1|

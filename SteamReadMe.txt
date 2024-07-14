@@ -14,14 +14,50 @@ There are default rules, but if there are any suggestions for better defaults, p
 [h2]Default Rules[/h2]
 
 The default rules are:
-|Item|Destination Tab|
-|--|--|
-|Weapons|1|
-|Ammo|2|
-|Armor|3|
-|Medical and Food|4|
-|Repair Items|5|
-|All other items|6|
+[table]
+[tr]
+[td]Item
+[/td]
+[td]Destination Tab
+[/td]
+[/tr]
+[tr]
+[td]Weapons
+[/td]
+[td]1
+[/td]
+[/tr]
+[tr]
+[td]Ammo
+[/td]
+[td]2
+[/td]
+[/tr]
+[tr]
+[td]Armor
+[/td]
+[td]3
+[/td]
+[/tr]
+[tr]
+[td]Medical and Food
+[/td]
+[td]4
+[/td]
+[/tr]
+[tr]
+[td]Repair Items
+[/td]
+[td]5
+[/td]
+[/tr]
+[tr]
+[td]All other items
+[/td]
+[td]6
+[/td]
+[/tr]
+[/table]
 
 The rules are relatively easy to change in the config file.
 
