@@ -2,27 +2,36 @@
 
 ![alt text](SortExample.png)
 
-A mod to automatically move items to specific tabs, as defined by the user.  
+A mod to automatically move items to specific tabs, with rules defined by the user defined in the configuration file.
 
 For example, weapons and ammo to the first tab, armor on the second, bartering items to the seventh tab, etc.
 
-Also adds a shortcut to run the tab sort.  Defaults to S, but can be configured.
+Press F5 on a tab to apply the item move rules for that tab.  Press S to invoke the game's normal sort.
 
-# Warning
-This mod is in *beta*.
+The rules and hotkeys can be changed in the configuration file.
 
-Another mod which also moved items caused game locks on mission end.  I believe this mod will not have that issue, but it would be best to backup the game save.
+There are default rules, but if there are any suggestions for better defaults, post a discussion or @ me on the [official Discord server](https://discord.gg/y8bRVNzzm6).
 
-If you wish to test the mod, make sure to backup your saves which are located at `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph`
+## Default Rules
+The default rules are:
+|Item|Destination Tab|
+|--|--|
+|Weapons|1|
+|Ammo|2|
+|Armor|3|
+|Medical and Food|4|
+|Repair Items|5|
+|All other items|6|
 
-## Defaults Request For Help
-I'm looking for useful default values for the sort.  Please put any suggestions in the discussions tab or @ me on the official Discord server.
+The rules are relatively easy to change in the config file.
 
-# Usage
+# Save Backup
 
-When on a screen with cargo tabs, press the F5 key to invoke the distribution.  This will only affect items that are on the current tab.  
+There have not been any reported issues, but it would be best to backup the saves just in case.
 
-The items will be distributed based on the rules defined in the configuration file.
+The saves are located at `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph` and begin with `slot_` 
+
+This is out of abundance of caution as there was another mod which moved items and had corruption issues.
 
 # Configuration
 
@@ -32,22 +41,22 @@ The configuration file will be created on the first game run and can be found at
 
 
 ### Data
-The item keys required for the rules will be found in the `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\QM_SortToTabs\DataExport.csv` file.  It will be created on the game's first run.
-If the data needs to be refreshed, delete the file.  The next time the game is run, the data will be extracted again.
+The rules are based on matches to items' identifiers.  The game exports the data into `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\QM_SortToTabs\DataExport.csv`, which is written on the game start.
 
-This file is only for informational purposes and is not used by the mod.
+If the data needs to be refreshed due to new items or categories being added to the game, delete the file and run the game.
 
+This file is for the user's reference and not used by the mod.
 
-
-## Refresh Key
-The refresh key can be found in the config file.  Valid keys can be found at the bottom of https://docs.unity3d.com/ScriptReference/KeyCode.html
-
+## Shortcut Keys
+The refresh and sort keys can be found in the config file.  Valid keys can be found at the bottom of https://docs.unity3d.com/ScriptReference/KeyCode.html
 
 ## Rules
-The rules are searched for a match from top to bottom.  First match wins.
-The rules have three optional parts:  Id (ex: army_knife), Type (ex: ArmorRecord), and the SubType (ex: QuestItem).
+The list of rules is searched for a match from top to bottom.  First match wins.
+The rules have three optional parts:  Id (ex: army_knife), Type (ex: ArmorRecord), and the SubType (ex: QuestItem).  Any blank parts will not be used to match an item.
+
 Any item that does not have a matching rule will not be moved.
-Most rules will only need a single item set.
+
+Most rules will only need a single identifier set.
 
 Example rules:
 
@@ -72,7 +81,7 @@ Example Entry in the config file:
 ```
 
 ## DataExport.csv
-The DataExport.csv file will contain the information required for the rules.
+The DataExport.csv file will contain the identifiers used by the rules.
 
 Example data:
 ```
@@ -84,12 +93,11 @@ merkUSB,DatadiskRecord,
 ```
 
 # Debugging
-The mod will automatically load changes to the config file while the game is running.
+To assist with debugging the rules while running the game, the mod will reload the configuration any time the file is saved.
 
-There is also an option called `DebugLogMatches`.  If set to true, the item match information will be logged to the game's log.  
+The config option`DebugLogMatches` can be enabled to log which rule matched the item.
 
 The game's log can be found here `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\Player.log`
-
 
 # Source Code
 Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
