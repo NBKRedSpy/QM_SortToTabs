@@ -5,7 +5,7 @@ A mod to automatically move items to specific tabs, with rules defined by the us
 
 For example, weapons and ammo to the first tab, armor on the second, bartering items to the seventh tab, etc.
 
-Press F5 on a tab to apply the item move rules for that tab.  Press S to invoke the game's normal sort.
+Press F5 to apply the move rules for the items on that tab.  Press S to invoke the game's normal sort.
 
 The rules and hotkeys can be changed in the configuration file.
 
@@ -160,6 +160,13 @@ knuckles,WeaponRecord,
 human_ear,TrashRecord,Resource
 merkUSB,DatadiskRecord,
 [/code]
+
+[h1]Bad Config File[/h1]
+
+If the configuration has a loading issue (such as it being incorrectly formatted), the game will use the defaults.
+There will be an error in the log player.log indicating this, but will not be obvious to users otherwise.
+
+To recover, delete the config file and restart the game.  A new, config file with the defaults will be created.
 
 [h1]Debugging[/h1]
 
