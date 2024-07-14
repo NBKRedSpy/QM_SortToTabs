@@ -27,7 +27,7 @@ namespace QM_SortToTabs
                 Sort(__instance);
             }
 
-            if(Input.GetKeyUp(KeyCode.S))
+            if(Input.GetKeyUp(Plugin.Config.TabSortKey))
             {
                 __instance.SortArsenalButtonOnOnClick(null);
 
