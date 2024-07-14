@@ -1,0 +1,54 @@
+Currently I have 
+
+guns ammo, death and defense stuff first tab, 
+second tab is armor, 
+third is consumables foods/meds/drugs 
+fourth is purely barter/upgrade items. 
+Fifth is crafting/trade goods, 
+Sixth is customized gear
+Seventh is misc/total junk
+
+
+
+-----------
+
+The Faz — Today at 11:06 PM
+1:Weapons
+2:Ammunition 
+3: Armor
+4: Healing Items
+5: Food items
+6: Junk items
+7: Sellable (luxury) items
+
+--------- Try this....
+AmmoRecord
+WeaponRecord
+TurretRecord
+GrenadeRecord
+MineRecord
+
+ArmorRecord
+BackpackRecord
+BootsRecord
+LeggingsRecord
+HelmetRecord
+VestRecord
+
+MedkitRecord
+
+FoodRecord
+
+BartherResource
+
+RepairRecord
+
+AutomapRecord
+DatadiskRecord
+QuasiArtifactRecord
+SkullRecord
+Container
+QuestItem
+Resource
+
+

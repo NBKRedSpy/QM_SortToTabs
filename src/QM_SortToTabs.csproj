@@ -28,11 +28,11 @@
 		</PackageReference>
 		<PackageReference Include="Lib.harmony" Version="2.3.3" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="Newtonsoft.json" Version="13.0.3" />
 		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-		<PackageReference Include="yamldotnet" Version="15.3.0" />
 	</ItemGroup>
 	<PropertyGroup />
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="set outputDir=D:\Games\Steam\steamapps\workshop\content\2059170\3288631292&#xD;&#xA;&#xD;&#xA;echo Target Directory:  %25outputDir%25&#xD;&#xA;&#xD;&#xA;xcopy /f /y   $(TargetDir)$(TargetName).* %25outputDir%25&#xD;&#xA;xcopy /f /y   $(TargetDir)0Harmony.dll %25outputDir%25&#xD;&#xA;xcopy /f /y   $(TargetDir)YamlDotNet.dll %25outputDir%25&#xD;&#xA;" />
+		<Exec Command="set deployDir=D:\Games\Steam\steamapps\workshop\content\2059170\3288631292&#xD;&#xA;&#xD;&#xA;echo Target Directory:  %25deployDir%25&#xD;&#xA;&#xD;&#xA;xcopy /f /y   $(TargetDir)$(TargetName).* %25deployDir%25&#xD;&#xA;xcopy /f /y   $(TargetDir)0Harmony.dll %25deployDir%25&#xD;&#xA;&#xD;&#xA;xcopy /f /y &quot;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Data.dll&quot; %25deployDir%25&#xD;&#xA;xcopy /f /y &quot;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Runtime.Serialization.dll&quot; %25deployDir%25&#xD;&#xA;xcopy /f /y  $(TargetDir)Newtonsoft.Json.dll %25deployDir%25&#xD;&#xA;" />
 	</Target>
 </Project>

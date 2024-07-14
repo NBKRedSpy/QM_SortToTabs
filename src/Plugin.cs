@@ -13,27 +13,39 @@ namespace QM_SortToTabs
 {
     public static class Plugin
     {
-        public static string ConfigPath => Path.Combine(Application.persistentDataPath, Assembly.GetExecutingAssembly().GetName().Name) + ".yaml";
+        public static string ConfigPath => Path.Combine(Application.persistentDataPath, Assembly.GetExecutingAssembly().GetName().Name) + ".json";
         public static string ModPersistenceFolder => Path.Combine(Application.persistentDataPath, Assembly.GetExecutingAssembly().GetName().Name);
 
         public static ModConfig Config { get; private set; }
 
+        public static void ReloadChangedConfig()
+        {
+            ModConfig config = ModConfig.ReloadChangedConfig(ConfigPath);
+
+            if(config != null)
+            {
+                Debug.Log("Config Reloaded");
+                Config = config;
+            }
+        }
 
         [Hook(ModHookType.AfterConfigsLoaded)]
         public static void AfterConfig(IModContext context)
         {
             Config = ModConfig.LoadConfig(ConfigPath);
-
-            if (Config.ExportItemRecords)
-            {
-                Directory.CreateDirectory(ModPersistenceFolder);
-                ExportRecords();
-            }
+            ExportRecords();
         }
 
         private static void ExportRecords()
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(ModPersistenceFolder, "DataExport.csv")))
+            string path = Path.Combine(ModPersistenceFolder, "DataExport.csv");
+
+            //Only write if the file does not already exist.
+            if (File.Exists(path)) return;
+
+            Directory.CreateDirectory(ModPersistenceFolder);
+
+            using (StreamWriter writer = new StreamWriter(path))
             {
                 writer.WriteLine("Id,Type,SubType");
 

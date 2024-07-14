@@ -22,25 +22,31 @@ namespace QM_SortToTabs
                 return;
             }
 
-
-            if (!Input.GetKeyUp(KeyCode.F5))
+            if (Input.GetKeyUp(Plugin.Config.SortToTabsKey))
             {
-                return;
+                Sort(__instance);
             }
 
+            if(Input.GetKeyUp(KeyCode.S))
+            {
+                __instance.SortArsenalButtonOnOnClick(null);
 
-            //Find currently selected tab?
+
+            }
+
+        }
+
+        public static void Sort(ArsenalScreen __instance)
+        {
+            //The UI's selected tab.
             int currentTabIndex = __instance._tabsView._idsToTabs.Values.ToList().FindIndex(x => x.IsSelected);
 
             if (currentTabIndex == -1)
             {
-                //Not sure how this would happen....
+                //Not sure how this would happen, but just incase.
                 Debug.Log("did not find selected tab");
                 return;
             }
-
-            //Get only the tabs within the amount of tabs available.
-            List<List<ItemType>> tabSorts = Plugin.Config.DestinationTabs.Tabs.Take(__instance._tabsView._idsToTabs.Values.Count).ToList();
 
             List<ItemStorage> shipCargo = __instance._magnumCargo.ShipCargo;
 
@@ -59,31 +65,35 @@ namespace QM_SortToTabs
                 throw new ApplicationException($"Did not find matching storage index {currentTabIndex}");
             }
 
+            //Reload the mappings if the config file has changed.
+            //Helps users create their  maps.
+
+            Plugin.ReloadChangedConfig();
+            TabMappings tabMappings = Plugin.Config.TabMappings;
+
+            bool logMatch = Plugin.Config.DebugLogMatches;
+
             //Find all items on this page.
-            for (int i = storage.Items.Count - 1; i >= 0; i--)
+            //Reverse due to item removal
+            for (int itemIndex = storage.Items.Count - 1; itemIndex >= 0; itemIndex--)
             {
-                BasePickupItem item = storage.Items[i];
+                BasePickupItem item = storage.Items[itemIndex];
 
-                for (int sortInfoIndex = 0; sortInfoIndex < tabSorts.Count; sortInfoIndex++)
+
+                TabMap matchedRule = tabMappings.FirstOrDefault(x => x.ItemMatch.Matches(item));
+
+
+                if (logMatch)
                 {
-                    if (sortInfoIndex == currentTabIndex) continue;
-
-                    List<ItemType> currentSort = tabSorts[sortInfoIndex];
-
-                    BasePickupItemRecord itemRecord = item.Record<BasePickupItemRecord>();
-
-                    if (currentSort.Any(x => x.Matches(item)))
-                    {
-                        //the sort index will match the destination tab index.
-                        shipCargo[sortInfoIndex].ExpandHeightAndPutItem(item);
-
-                        storage.Remove(item);
-                        //remove from this storage
-                    }
+                    Debug.Log($"Match: '{item.Id}' {(matchedRule == null ? "None found" : matchedRule.ToString())}");
                 }
+
+                if (matchedRule == null || matchedRule.TabNumber == currentTabIndex + 1) continue;
+
+                storage.Remove(item);
+                shipCargo[matchedRule.TabNumber - 1].ExpandHeightAndPutItem(item);
             }
             __instance._tabsView.RefreshAllTabs();
-
         }
     }
 }

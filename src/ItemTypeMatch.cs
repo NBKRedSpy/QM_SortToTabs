@@ -1,4 +1,5 @@
 ﻿using MGSC;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,11 +7,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using YamlDotNet.Serialization;
 
 namespace QM_SortToTabs
 {
-    public class ItemType
+    public class ItemTypeMatch
     {
 
         private Assembly GameAssembly { get; set; }
@@ -18,14 +18,14 @@ namespace QM_SortToTabs
         public string RecordType { get; set; }
         public string SubType { get; set; }
 
-        [YamlIgnore]
+        [JsonIgnore]
         public Type ObjectRecordType { get; set; }
 
-        public ItemType()
+        public ItemTypeMatch()
         {
         }
 
-        public ItemType(string id , string recordType, string subType)
+        public ItemTypeMatch(string id , string recordType, string subType)
         {
             Id = id?.Trim() ?? "";
             RecordType = recordType?.Trim() ?? "";
@@ -71,6 +71,11 @@ namespace QM_SortToTabs
             }
 
             ObjectRecordType = GameAssembly.GetType("MGSC." + RecordType);
+        }
+
+        public override string ToString()
+        {
+            return $"Id: '{Id}' RecordType: '{RecordType}' SubType: '{SubType}'";
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MGSC;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,54 +9,48 @@ using UnityEngine;
 
 namespace QM_SortToTabs
 {
-    public class TabMappings
+    public class TabMappings : List<TabMap>
     {
-
-        public List<List<ItemType>> Tabs { get; set;  } = new List<List<ItemType>>();
-
-
         public void Init()
         {
-            foreach (var tab in Tabs)
+            foreach (var tab in this)
             {
-                foreach (ItemType rule in tab)
-                {
-                    rule.Init();
-                }
+                tab.ItemMatch.Init();
             }
         }
 
-        public TabMappings()
-        {
-            SetDefaults();
-        }
         public void SetDefaults()
         {
-            Tabs.Add(new List<ItemType>());
-            Tabs.Add(new List<ItemType>()
-            {
-                new ItemType("","WeaponRecord", ""),
-            });
+            //Pre-create on item for each tab to simplify the config for users.
 
-            Tabs.Add(new List<ItemType>()
-            {
-                //Invalid for testing.
-                new ItemType("", "TrashRecord", "")
-            });
-            Tabs.Add(new List<ItemType>()
-            {
-                new ItemType("pmc_smg", "",""),
-            });
-            Tabs.Add(new List<ItemType>()
-            {
-                new ItemType("", "", "BartherResource")
-            });
-            Tabs.Add(new List<ItemType>());
 
-            for (int i = 0; i < 7 - Tabs.Count; i++)
-            {
-                Tabs.Add(new List<ItemType>());
-            }
+            Add(new TabMap(1, new ItemTypeMatch("", "WeaponRecord", "")));
+            Add(new TabMap(1, new ItemTypeMatch("", "TurretRecord", "")));
+            Add(new TabMap(1, new ItemTypeMatch("", "GrenadeRecord", "")));
+            Add(new TabMap(1, new ItemTypeMatch("", "MineRecord", "")));
+
+            Add(new TabMap(2, new ItemTypeMatch("", "AmmoRecord", "")));
+
+            Add(new TabMap(3, new ItemTypeMatch("", "ArmorRecord", "")));
+            Add(new TabMap(3, new ItemTypeMatch("", "BackpackRecord", "")));
+            Add(new TabMap(3, new ItemTypeMatch("", "BootsRecord", "")));
+            Add(new TabMap(3, new ItemTypeMatch("", "LeggingsRecord", "")));
+            Add(new TabMap(3, new ItemTypeMatch("", "HelmetRecord", "")));
+            Add(new TabMap(3, new ItemTypeMatch("", "VestRecord", "")));
+
+            Add(new TabMap(4, new ItemTypeMatch("", "MedkitRecord", "")));
+            Add(new TabMap(4, new ItemTypeMatch("", "FoodRecord", "")));
+
+            Add(new TabMap(5, new ItemTypeMatch("", "RepairRecord", "")));
+
+            Add(new TabMap(6, new ItemTypeMatch("", "AutomapRecord", "")));
+            Add(new TabMap(6, new ItemTypeMatch("", "DatadiskRecord", "")));
+            Add(new TabMap(6, new ItemTypeMatch("", "QuasiArtifactRecord", "")));
+            Add(new TabMap(6, new ItemTypeMatch("", "SkullRecord", "")));
+            Add(new TabMap(6, new ItemTypeMatch("", "", "Container")));
+            Add(new TabMap(6, new ItemTypeMatch("", "", "Resource")));
+            Add(new TabMap(6, new ItemTypeMatch("", "", "BartherResource")));
+            Add(new TabMap(6, new ItemTypeMatch("", "", "QuestItem")));
 
         }
     }
