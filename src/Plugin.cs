@@ -18,6 +18,44 @@ namespace QM_SortToTabs
 
         public static ModConfig Config { get; private set; }
 
+
+        [Hook(ModHookType.AfterConfigsLoaded)]
+        public static void AfterConfig(IModContext context)
+        {
+            Config = ModConfig.LoadConfig(ConfigPath);
+            ExportRecords();
+
+
+            //------ Patching
+            Harmony harmony = new Harmony("nbk_redspy.proto");
+
+            //Have to patch object since the Process function is overridden.
+
+            harmony.Patch(
+                AccessTools.Method(typeof(AfterRaidScreen), nameof(AfterRaidScreen.Process)),
+                new HarmonyMethod(typeof(CargoScreenUtil), nameof(CargoScreenUtil.ProcessSortLoop))
+                );
+
+            harmony.Patch(
+                AccessTools.Method(typeof(ArsenalScreen), nameof(ArsenalScreen.Process)),
+                new HarmonyMethod(typeof(CargoScreenUtil), nameof(CargoScreenUtil.ProcessSortLoop))
+                );
+
+            harmony.Patch(
+                AccessTools.Method(typeof(FastTradeScreen), nameof(FastTradeScreen.Process)),
+                new HarmonyMethod(typeof(CargoScreenUtil), nameof(CargoScreenUtil.ProcessSortLoop))
+                );
+
+            ////Unable to find this screen invoked.  Maybe unused now?
+            ////  Tried the on planet cargo and trade screens, but no invoke.
+            ////While it should be fine, it's not being included since I cannot test it.
+            //harmony.Patch(
+            //    AccessTools.Method(typeof(TradeShuttleScreen), nameof(TradeShuttleScreen.Process)),
+            //    new HarmonyMethod(typeof(CargoScreenUtil), nameof(CargoScreenUtil.ProcessSortLoop))
+            //    );
+        }
+
+
         public static void ReloadChangedConfig()
         {
             ModConfig config = ModConfig.ReloadChangedConfig(ConfigPath);
@@ -29,12 +67,6 @@ namespace QM_SortToTabs
             }
         }
 
-        [Hook(ModHookType.AfterConfigsLoaded)]
-        public static void AfterConfig(IModContext context)
-        {
-            Config = ModConfig.LoadConfig(ConfigPath);
-            ExportRecords();
-        }
 
         private static void ExportRecords()
         {
@@ -71,11 +103,6 @@ namespace QM_SortToTabs
             }
         }
 
-        [Hook(ModHookType.AfterBootstrap)]
-        public static void DungeonUpdateAfterGameLoop(IModContext context)
-        {
-            new Harmony("nbk_redspy.proto").PatchAll();
-
-        }
+     
     }
 }
