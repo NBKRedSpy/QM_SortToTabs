@@ -138,5 +138,5 @@ Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
 ## 1.1.0
 * Added Recycling upgrade support.
 * Added Fast Trade and After Raid screens
-* Included new `ContinueOnTabMiss` member for busy recycler rules.
+* Included new `AltTabNumber` member for busy recycler rules.
 

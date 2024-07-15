@@ -1,15 +1,15 @@
 [h1]Quasimorph Sort To Tabs[/h1]
 
 
-A mod to automatically move items to specific tabs, with rules defined by the user defined in the configuration file.
+A mod to automatically move items to specific tabs using rules defined by the user.
 
-For example, weapons and ammo to the first tab, armor on the second, bartering items to the seventh tab, etc.
+For example, weapons to the first tab, ammo on the second, armor on the third, etc.
 
 Press F5 to apply the move rules for the items on that tab.  Press S to invoke the game's normal sort.
 
 The rules and hotkeys can be changed in the configuration file.
 
-There are default rules, but if there are any suggestions for better defaults, post a discussion or @ me on the [url=https://discord.gg/y8bRVNzzm6]official Discord server[/url].
+The mod starts with default search rules.  If there are any suggestions for better defaults, post a discussion or @ me on the [url=https://discord.gg/y8bRVNzzm6]official Discord server[/url].
 
 [h2]Default Rules[/h2]
 
@@ -59,15 +59,13 @@ The default rules are:
 [/tr]
 [/table]
 
-The rules are relatively easy to change in the config file.
-
 [h1]Save Backup[/h1]
 
-There have not been any reported issues, but it would be best to backup the saves just in case.
+There have not been any reported issues, but as with all mods it would be best to backup the saves just in case.
 
 The saves are located at [i]%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph[/i] and begin with [i]slot_[/i]
 
-This is out of abundance of caution as there was another mod which moved items and had corruption issues.
+This warning is out of abundance of caution as there was another mod which moved items and had corruption issues.
 
 [h1]Configuration[/h1]
 
@@ -75,13 +73,13 @@ This is out of abundance of caution as there was another mod which moved items a
 
 The configuration file will be created on the first game run and can be found at [i]%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\QM_SortToTabs.json[/i].
 
+See the rules section below.
+
 [h3]Data[/h3]
 
-The rules are based on matches to items' identifiers.  The game exports the data into [i]%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\QM_SortToTabs\DataExport.csv[/i], which is written on the game start.
+The rules are based on matches to items' identifiers.  The game exports those identifiers to [i]%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\QM_SortToTabs\DataExport.csv[/i], which is written on the game start.
 
 If the data needs to be refreshed due to new items or categories being added to the game, delete the file and run the game.
-
-This file is for the user's reference and not used by the mod.
 
 [h2]Shortcut Keys[/h2]
 
@@ -89,7 +87,7 @@ The refresh and sort keys can be found in the config file.  Valid keys can be fo
 
 [h2]Rules[/h2]
 
-The list of rules is searched for a match from top to bottom.  First match wins.
+The rules search for a match from top to bottom.  First match wins.
 The rules have three optional parts:  Id (ex: army_knife), Type (ex: ArmorRecord), and the SubType (ex: QuestItem).  Any blank parts will not be used to match an item.
 
 Any item that does not have a matching rule will not be moved.
@@ -175,16 +173,18 @@ Example rules:
 Example Entry in the config file:
 [code]
 {
-      "TabNumber": 2,
-      "ItemMatch": {
-        "Id": "",
-        "RecordType": "AmmoRecord",
-        "SubType": ""
-      }
-    },
+  "TabNumber": 1,
+  "AltTabNumber": 0,
+  "ItemMatch": {
+    "Id": "",
+    "RecordType": "WeaponRecord",
+    "SubType": ""
+  }
+},
+
 [/code]
 
-[h2]DataExport.csv[/h2]
+[h2]DataExport.csv (Data Identifier Lookup)[/h2]
 
 The DataExport.csv file will contain the identifiers used by the rules.
 
@@ -194,8 +194,34 @@ Id,Type,SubType
 quest_fresco_data,TrashRecord,QuestItem
 knuckles,WeaponRecord,
 human_ear,TrashRecord,Resource
-merkUSB,DatadiskRecord,
++merkUSB,DatadiskRecord,
 [/code]
+
+[h2]Special Recycling Rules[/h2]
+
+If the ship has the recycler and the recycler is not in use, the rules will treat the recycler as an 8th tab.
+
+If a rule targets the 8th tab but the recyler is not available or in use, the rule will not move the item.
+However, if the property [i]AltTabNumber[/i] is set, that tab will be used as the target instead.
+
+This allows a user to create a staging tab until the recycler is avaialbe.  When the recycler is ready, running the sort on that tab will move the staged items to the recycler.
+
+Example:
+[code]
+    {
+      "TabNumber": 8,
+      "AltTabNumber": 7,
+      "ItemMatch": {
+        "Id": "pmc_pistol",
+        "RecordType": "",
+        "SubType": ""
+      }
+    },
+[/code]
+
+[h1]Mod Upgrade Note[/h1]
+
+If the configuration file does not have the [i]AltTabNumber[/i] option, either add it manually where needed, or delete the configuration file.  The game will generate a new config on start.
 
 [h1]Bad Config File[/h1]
 
@@ -215,3 +241,12 @@ The game's log can be found here [i]%AppData%\..\LocalLow\Magnum Scriptum Ltd\Qu
 [h1]Source Code[/h1]
 
 Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
+
+[h1]Change Log[/h1]
+
+[h2]1.1.0[/h2]
+[list]
+[*]Added Recycling upgrade support.
+[*]Added Fast Trade and After Raid screens
+[*]Included new [i]AltTabNumber[/i] member for busy recycler rules.
+[/list]
