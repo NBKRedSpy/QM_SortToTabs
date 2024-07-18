@@ -238,6 +238,11 @@ The config option[i]DebugLogMatches[/i] can be enabled to log which rule matched
 
 The game's log can be found here [i]%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\Player.log[/i]
 
+[h1]Support[/h1]
+
+If you enjoy my mods and want to leave a tip, check out my [url=https://ko-fi.com/nbkredspy71915]Ko-Fi[/url] page.
+Thanks!
+
 [h1]Source Code[/h1]
 
 Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
