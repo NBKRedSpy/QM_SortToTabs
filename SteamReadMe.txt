@@ -249,6 +249,11 @@ Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
 
 [h1]Change Log[/h1]
 
+[h2]1.2.0[/h2]
+[list]
+[*]Version .8 support.
+[/list]
+
 [h2]1.1.0[/h2]
 [list]
 [*]Added Recycling upgrade support.

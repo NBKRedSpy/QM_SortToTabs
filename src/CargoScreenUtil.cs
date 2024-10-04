@@ -142,7 +142,7 @@ namespace QM_SortToTabs
 
             if (Input.GetKeyUp(Plugin.Config.TabSortKey))
             {
-                __instance.SortArsenalButtonOnOnClick(null);
+                __instance.SortArsenalButtonOnOnClick(null,1);
 
 
             }

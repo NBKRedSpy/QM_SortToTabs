@@ -3,7 +3,7 @@
     <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	  <VersionPrefix>1.1.0</VersionPrefix>
+	  <VersionPrefix>1.2.0</VersionPrefix>
   </PropertyGroup>
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp" publicize="true">

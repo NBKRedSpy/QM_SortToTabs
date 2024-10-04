@@ -139,6 +139,10 @@ Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
 
 
 # Change Log
+
+## 1.2.0
+* Version .8 support.
+
 ## 1.1.0
 * Added Recycling upgrade support.
 * Added Fast Trade and After Raid screens
