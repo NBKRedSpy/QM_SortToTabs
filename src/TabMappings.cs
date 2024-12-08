@@ -51,6 +51,8 @@ namespace QM_SortToTabs
             Add(new TabMap(6, new ItemTypeMatch("", "", "Resource")));
             Add(new TabMap(6, new ItemTypeMatch("", "", "BartherResource")));
             Add(new TabMap(6, new ItemTypeMatch("", "", "QuestItem")));
+            //The tab number 6 items above this are not needed, but leaving for examples since they should be common items.
+            Add(new TabMap(6, new ItemTypeMatch("", "", "")));      
 
         }
     }

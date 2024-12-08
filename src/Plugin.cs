@@ -13,16 +13,23 @@ namespace QM_SortToTabs
 {
     public static class Plugin
     {
-        public static string ConfigPath => Path.Combine(Application.persistentDataPath, Assembly.GetExecutingAssembly().GetName().Name) + ".json";
-        public static string ModPersistenceFolder => Path.Combine(Application.persistentDataPath, Assembly.GetExecutingAssembly().GetName().Name);
-
+        public static ConfigDirectories ConfigDirectories = new ConfigDirectories();
         public static ModConfig Config { get; private set; }
 
 
         [Hook(ModHookType.AfterConfigsLoaded)]
         public static void AfterConfig(IModContext context)
         {
-            Config = ModConfig.LoadConfig(ConfigPath);
+
+            string configFileName = ConfigDirectories.ModAssemblyName + ".json";
+
+            Directory.CreateDirectory(ConfigDirectories.AllModsConfigFolder);
+            ConfigDirectories = new ConfigDirectories(configFileName);
+            ConfigDirectories.UpgradeModDirectory();
+            ConfigDirectories.UpgradeFile(configFileName);
+            Directory.CreateDirectory(ConfigDirectories.ModPersistenceFolder);
+
+            Config = ModConfig.LoadConfig(ConfigDirectories.ConfigPath);
             ExportRecords();
 
 
@@ -58,7 +65,7 @@ namespace QM_SortToTabs
 
         public static void ReloadChangedConfig()
         {
-            ModConfig config = ModConfig.ReloadChangedConfig(ConfigPath);
+            ModConfig config = ModConfig.ReloadChangedConfig(ConfigDirectories.ConfigPath);
 
             if(config != null)
             {
@@ -70,12 +77,12 @@ namespace QM_SortToTabs
 
         private static void ExportRecords()
         {
-            string path = Path.Combine(ModPersistenceFolder, "DataExport.csv");
+            string path = Path.Combine(ConfigDirectories.ModPersistenceFolder, "DataExport.csv");
 
             //Only write if the file does not already exist.
             if (File.Exists(path)) return;
 
-            Directory.CreateDirectory(ModPersistenceFolder);
+            Directory.CreateDirectory(ConfigDirectories.ModPersistenceFolder);
 
             using (StreamWriter writer = new StreamWriter(path))
             {

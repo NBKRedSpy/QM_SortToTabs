@@ -24,24 +24,16 @@ The default rules are:
 |Repair Items|5|
 |All other items|6|
 
-# Save Backup
-
-There have not been any reported issues, but as with all mods it would be best to backup the saves just in case.
-
-The saves are located at `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph` and begin with `slot_` 
-
-This warning is out of abundance of caution as there was another mod which moved items and had corruption issues.
-
 # Configuration
 
 ## Files
 
-The configuration file will be created on the first game run and can be found at `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\QM_SortToTabs.json`.  
+The configuration file will be created on the first game run and can be found at `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph_ModConfigs\QM_SortToTabs\QM_SortToTabs.json`.  
 
 See the [rules](#rules) section below.
 
 ### Data
-The rules are based on matches to items' identifiers.  The game exports those identifiers to `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\QM_SortToTabs\DataExport.csv`, which is written on the game start.
+The rules are based on matches to items' identifiers.  The game exports those identifiers to `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph_ModConfigs\QM_SortToTabs\DataExport.csv`, which is written on the game start.
 
 If the data needs to be refreshed due to new items or categories being added to the game, delete the file and run the game.
 
@@ -94,10 +86,10 @@ human_ear,TrashRecord,Resource
 ## Special Recycling Rules
 If the ship has the recycler and the recycler is not in use, the rules will treat the recycler as an 8th tab.
 
-If a rule targets the 8th tab but the recyler is not available or in use, the rule will not move the item.
+If a rule targets the 8th tab but the recycler is not available or in use, the rule will not move the item.
 However, if the property `AltTabNumber` is set, that tab will be used as the target instead.
 
-This allows a user to create a staging tab until the recycler is avaialbe.  When the recycler is ready, running the sort on that tab will move the staged items to the recycler.
+This allows a user to create a staging tab until the recycler is available.  When the recycler is ready, running the sort on that tab will move the staged items to the recycler.
 
 Example:
 
@@ -139,6 +131,9 @@ Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
 
 
 # Change Log
+
+## 1.3.0
+* Moved config file directory.
 
 ## 1.2.0
 * Version .8 support.
