@@ -130,7 +130,7 @@ namespace QM_SortToTabs
 
         public static void ProcessSortLoop(ScreenWithShipCargo __instance)
         {
-            if (!__instance.gameObject.activeSelf || SharedUi.ManageSkullWindow.IsViewActive || SharedUi.NarrativeTextScreen.IsViewActive)
+            if (!__instance.gameObject.activeSelf || SharedUi.ManageSkullWindow.IsViewActive || SharedUi.NarrativeTextScreen.IsActive)
             {
                 return;
             }

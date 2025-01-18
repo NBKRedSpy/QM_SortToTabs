@@ -25,9 +25,8 @@ namespace QM_SortToTabs
 
 
             Add(new TabMap(1, new ItemTypeMatch("", "WeaponRecord", "")));
-            Add(new TabMap(1, new ItemTypeMatch("", "TurretRecord", "")));
+            Add(new TabMap(1, new ItemTypeMatch("", "PlaceableDeviceRecord", "")));
             Add(new TabMap(1, new ItemTypeMatch("", "GrenadeRecord", "")));
-            Add(new TabMap(1, new ItemTypeMatch("", "MineRecord", "")));
 
             Add(new TabMap(2, new ItemTypeMatch("", "AmmoRecord", "")));
 
@@ -38,14 +37,12 @@ namespace QM_SortToTabs
             Add(new TabMap(3, new ItemTypeMatch("", "HelmetRecord", "")));
             Add(new TabMap(3, new ItemTypeMatch("", "VestRecord", "")));
 
-            Add(new TabMap(4, new ItemTypeMatch("", "MedkitRecord", "")));
-            Add(new TabMap(4, new ItemTypeMatch("", "FoodRecord", "")));
+            Add(new TabMap(4, new ItemTypeMatch("", "FixationMedicineRecord", "")));
+            Add(new TabMap(4, new ItemTypeMatch("", "ConsumableRecord", "")));
 
             Add(new TabMap(5, new ItemTypeMatch("", "RepairRecord", "")));
 
-            Add(new TabMap(6, new ItemTypeMatch("", "AutomapRecord", "")));
             Add(new TabMap(6, new ItemTypeMatch("", "DatadiskRecord", "")));
-            Add(new TabMap(6, new ItemTypeMatch("", "QuasiArtifactRecord", "")));
             Add(new TabMap(6, new ItemTypeMatch("", "SkullRecord", "")));
             Add(new TabMap(6, new ItemTypeMatch("", "", "Container")));
             Add(new TabMap(6, new ItemTypeMatch("", "", "Resource")));
