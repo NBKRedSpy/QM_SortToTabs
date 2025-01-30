@@ -90,6 +90,7 @@ Example Entry in the config file:
 While items can have more than one category, the rule's Category property only supports *one* item. 
 
 Example from the DataExport.csv:
+
 |Id|Type|SubType|ItemClass|Categories|
 |--|--|--|--|--|
 |venus_knife_1|WeaponRecord||Weapon|Tezctlan XiomaraMasks|

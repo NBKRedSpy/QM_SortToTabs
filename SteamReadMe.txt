@@ -270,9 +270,32 @@ Example Entry in the config file:
 While items can have more than one category, the rule's Category property only supports [i]one[/i] item.
 
 Example from the DataExport.csv:
-|Id|Type|SubType|ItemClass|Categories|
-|--|--|--|--|--|
-|venus_knife_1|WeaponRecord||Weapon|Tezctlan XiomaraMasks|
+[table]
+[tr]
+[td]Id
+[/td]
+[td]Type
+[/td]
+[td]SubType
+[/td]
+[td]ItemClass
+[/td]
+[td]Categories
+[/td]
+[/tr]
+[tr]
+[td]venus_knife_1
+[/td]
+[td]WeaponRecord
+[/td]
+[td]
+[/td]
+[td]Weapon
+[/td]
+[td]Tezctlan XiomaraMasks
+[/td]
+[/tr]
+[/table]
 
 To match all Tezctlan and XiomaraMasks, there would need to be one rule for each.  Using "Tezctlan XiomaraMasks" will not work.
 
