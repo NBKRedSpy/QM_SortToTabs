@@ -341,6 +341,12 @@ Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
 
 [h1]Change Log[/h1]
 
+[h2]1.4.1.3[/h2]
+[list]
+[*](internal) Config reload consistency on change.
+[*]Fixed ItemClass not included in rule match debug output.
+[/list]
+
 [h2]1.4.1.2[/h2]
 [list]
 [*]0.8.5 Support

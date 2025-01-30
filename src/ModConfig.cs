@@ -127,8 +127,6 @@ namespace QM_SortToTabs
 
             }
 
-            LastConfigFileChange = new FileInfo(configPath).LastWriteTime;
-
             return config;
 
 
@@ -140,6 +138,7 @@ namespace QM_SortToTabs
             {
                 string json = JsonConvert.SerializeObject(config, JsonSettings);
                 File.WriteAllText(configPath, json);
+                LastConfigFileChange = new FileInfo(configPath).LastWriteTime;
             }
             catch (Exception ex)
             {

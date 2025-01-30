@@ -73,7 +73,7 @@ namespace QM_SortToTabs
 
         public override string ToString()
         {
-            return $"Id: '{Id}' RecordType: '{RecordType}' Category: '{Category}' SubType: '{SubType}'";
+            return $"Id: '{Id}' RecordType: '{RecordType}' Category: '{Category}' SubType: '{SubType}' ItemClass: '{ItemClass}'";
         }
 
         public override bool Equals(object obj)
