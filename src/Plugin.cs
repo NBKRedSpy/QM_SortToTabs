@@ -16,6 +16,11 @@ namespace QM_SortToTabs
         public static ConfigDirectories ConfigDirectories = new ConfigDirectories();
         public static ModConfig Config { get; private set; }
 
+        /// <summary>
+        /// If true, the config file was upgraded and the user needs to be asked if they want to just reset the rules to the new defaults
+        /// since the "upgraded" rules don't work like the old rules.
+        /// </summary>
+        public static bool AskForConfigReset { get; set; } = false;
 
         [Hook(ModHookType.AfterConfigsLoaded)]
         public static void AfterConfig(IModContext context)
@@ -24,17 +29,17 @@ namespace QM_SortToTabs
             string configFileName = ConfigDirectories.ModAssemblyName + ".json";
 
             Directory.CreateDirectory(ConfigDirectories.AllModsConfigFolder);
+
             ConfigDirectories = new ConfigDirectories(configFileName);
-            ConfigDirectories.UpgradeModDirectory();
-            ConfigDirectories.UpgradeFile(configFileName);
+            ConfigDirectories.MoveLegacyConfigLocation(configFileName);
+
             Directory.CreateDirectory(ConfigDirectories.ModPersistenceFolder);
 
             Config = ModConfig.LoadConfig(ConfigDirectories.ConfigPath);
             ExportRecords();
 
-
             //------ Patching
-            Harmony harmony = new Harmony("nbk_redspy.proto");
+            Harmony harmony = new Harmony("nbk_redspy.SortToTabs");
 
             //Have to patch object since the Process function is overridden.
 
@@ -53,16 +58,13 @@ namespace QM_SortToTabs
                 new HarmonyMethod(typeof(CargoScreenUtil), nameof(CargoScreenUtil.ProcessSortLoop))
                 );
 
-            ////Unable to find this screen invoked.  Maybe unused now?
-            ////  Tried the on planet cargo and trade screens, but no invoke.
-            ////While it should be fine, it's not being included since I cannot test it.
-            //harmony.Patch(
-            //    AccessTools.Method(typeof(TradeShuttleScreen), nameof(TradeShuttleScreen.Process)),
-            //    new HarmonyMethod(typeof(CargoScreenUtil), nameof(CargoScreenUtil.ProcessSortLoop))
-            //    );
+            harmony.PatchAll();
         }
 
 
+        /// <summary>
+        /// Invoked when the config file has been changed on disk.
+        /// </summary>
         public static void ReloadChangedConfig()
         {
             ModConfig config = ModConfig.ReloadChangedConfig(ConfigDirectories.ConfigPath);
@@ -74,42 +76,56 @@ namespace QM_SortToTabs
             }
         }
 
-
+        /// <summary>
+        /// Writes out the items' data to DataExport.csv.  This is used by the user to create new rules.
+        /// </summary>
         private static void ExportRecords()
         {
             string path = Path.Combine(ConfigDirectories.ModPersistenceFolder, "DataExport.csv");
 
-            //Only write if the file does not already exist.
-            if (File.Exists(path)) return;
-
             Directory.CreateDirectory(ConfigDirectories.ModPersistenceFolder);
 
-            using (StreamWriter writer = new StreamWriter(path))
+            StringBuilder sb = new StringBuilder();
+
+
+            sb.AppendLine("ItemName,Id,Type,SubType,ItemClass,Categories");
+            foreach (var item in Data.Items.Records)
             {
-                writer.WriteLine("Id,Type,SubType");
 
-                foreach (var item in Data.Items.Records)
+                CompositeItemRecord composite = item as CompositeItemRecord;
+
+                BasePickupItemRecord target;
+                if (composite != null)
                 {
+                    target = composite.PrimaryRecord;
+                }
+                else
+                {
+                    target = item;
+                }
 
-                    CompositeItemRecord composite = item as CompositeItemRecord;
+                ItemRecord itemRecord = target as ItemRecord;
+                TrashRecord trash = target as TrashRecord;
 
-                    BasePickupItemRecord target;
-                    if (composite != null)
-                    {
-                        target = composite.PrimaryRecord;
-                    }
-                    else
-                    {
-                        target = item;
-                    }
+                string itemName = Localization.Get($"item.{item.Id}.name");
 
-                    TrashRecord trash = target as TrashRecord;
+                sb.AppendLine(String.Join(",", itemName, target.Id, target.GetType().Name, 
+                    trash?.SubType,itemRecord.ItemClass,
+                    string.Join(" ", itemRecord?.Categories)));
+            }
 
-                    writer.WriteLine(String.Join(",", target.Id, target.GetType().Name, trash?.SubType));
+            string output = sb.ToString();
+
+            //Do not write if the data is the same as the existing file.
+            if (File.Exists(path))
+            {
+                if (File.ReadAllText(path) == output)
+                {
+                    return;
                 }
             }
-        }
 
-     
+            File.WriteAllText(path, output);
+        }
     }
 }

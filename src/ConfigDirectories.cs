@@ -45,10 +45,17 @@ namespace QM_SortToTabs
 
         }
 
+
+        public void MoveLegacyConfigLocation(string configFileName = "config.json")
+        {
+            UpgradeModDirectory();
+            UpgradeFile(configFileName);
+
+        }
         /// <summary>
         /// Moves the config files from the legacy directory to the new directory.
         /// </summary>
-        public void UpgradeModDirectory()
+        private void UpgradeModDirectory()
         {
             try
             {
@@ -70,7 +77,7 @@ namespace QM_SortToTabs
         /// Moves a standalone file to a directory config path.
         /// </summary>
         /// <param name="configFileName"></param>
-        public void UpgradeFile(string configFileName = "config.json")
+        private void UpgradeFile(string configFileName = "config.json")
         {
             try
             {
