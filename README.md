@@ -154,30 +154,3 @@ The game's log can be found here `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quas
 
 # Source Code
 Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
-
-# Change Log
-## 1.4.2
-* (internal) Better compatibility with other mods that are updating the localization data.
-* Thanks to Steam user BadRyuner for noticing this mod was calling the Localization object too early.
-
-## 1.4.1.3
-* (internal) Config reload consistency on change.
-* Fixed ItemClass not included in rule match debug output.
-
-## 1.4.1.2
-* 0.8.5 Support
-* Add conversion from mod's config file to support 0.8.5's item changes.
-* Support for Categories.
-* Always writes the data export file if the data has changed.
-
-## 1.3.0
-* Moved config file directory.
-
-## 1.2.0
-* Version .8 support.
-
-## 1.1.0
-* Added Recycling upgrade support.
-* Added Fast Trade and After Raid screens
-* Included new `AltTabNumber` member for busy recycler rules.
-
