@@ -364,6 +364,12 @@ Source code is available on GitHub https://github.com/NBKRedSpy/QM_SortToTabs
 
 [h1]Change Log[/h1]
 
+[h2]1.4.2[/h2]
+[list]
+[*](internal) Better compatibility with other mods that are updating the localization data.
+[*]Thanks to Steam user BadRyuner for noticing this mod was calling the Localization object too early.
+[/list]
+
 [h2]1.4.1.3[/h2]
 [list]
 [*](internal) Config reload consistency on change.

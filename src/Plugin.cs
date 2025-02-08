@@ -36,7 +36,6 @@ namespace QM_SortToTabs
             Directory.CreateDirectory(ConfigDirectories.ModPersistenceFolder);
 
             Config = ModConfig.LoadConfig(ConfigDirectories.ConfigPath);
-            ExportRecords();
 
             //------ Patching
             Harmony harmony = new Harmony("nbk_redspy.SortToTabs");
@@ -61,6 +60,11 @@ namespace QM_SortToTabs
             harmony.PatchAll();
         }
 
+        [Hook(ModHookType.AfterBootstrap)]
+        public static void AfterBootstrap(IModContext context)
+        {
+            ExportRecords();
+        }
 
         /// <summary>
         /// Invoked when the config file has been changed on disk.
