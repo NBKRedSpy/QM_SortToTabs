@@ -12,10 +12,10 @@ using UnityEngine;
 
 namespace QM_SortToTabs
 {
-    public static class CargoScreenUtil
+    internal static class CargoScreenUtil
     {
 
-        private static void Sort(ScreenWithShipCargo __instance)
+        internal static void Sort(ScreenWithShipCargo __instance)
         {
 
             //------------ recycling testing
@@ -66,7 +66,7 @@ namespace QM_SortToTabs
             List<ItemStorage> shipStorages = new List<ItemStorage>(__instance._magnumCargo.ShipCargo);
 
             //Add the recycling storage if it exists and is not busy.
-            if(includeRecyclerStorage)
+            if (includeRecyclerStorage)
             {
                 shipStorages.Add(__instance._magnumCargo.RecyclingStorage);
             }
@@ -88,14 +88,14 @@ namespace QM_SortToTabs
 
                 //No match, invalid tab number, or targeting the current tab.
                 //Yes,this downstream validation is hacky.  Its a mod. =)
-                if (matchedRule == null ||  matchedRule.TabNumber <= 0 || matchedRule.TabNumber == currentUiTabIndex + 1)
+                if (matchedRule == null || matchedRule.TabNumber <= 0 || matchedRule.TabNumber == currentUiTabIndex + 1)
                 {
                     continue;
                 }
 
                 int targetTab;
 
-                if(matchedRule.TabNumber <= shipStorages.Count)
+                if (matchedRule.TabNumber <= shipStorages.Count)
                 {
                     targetTab = matchedRule.TabNumber;
                 }
@@ -108,7 +108,7 @@ namespace QM_SortToTabs
                         Debug.Log($"Match: '{item.Id}'. Target tab is not available.  Using alt {targetTab}");
                     }
 
-                    if(targetTab == currentUiTabIndex + 1)
+                    if (targetTab == currentUiTabIndex + 1)
                     {
                         continue;
                     }
@@ -121,27 +121,29 @@ namespace QM_SortToTabs
 
 
                 sourceStorage.Remove(item);
-                shipStorages[targetTab -1].ExpandHeightAndPutItem(item);
+                shipStorages[targetTab - 1].ExpandHeightAndPutItem(item);
             }
 
             __instance._tabsView.RefreshAllTabs();
         }
 
-        public static void ProcessSortLoop(ScreenWithShipCargo __instance)
+        public static void ProcessSortLoop(ScreenWithShipCargo cargoScreen)
         {
-            if (!__instance.gameObject.activeSelf || SharedUi.ManageSkullWindow.IsViewActive || SharedUi.NarrativeTextScreen.IsActive)
-            {
-                return;
-            }
+
+            //The GetActiveViews is the only way I have found to determine if the cargo screen is 
+            //  currently not overlayed with antoher window.  For example, the context menu.
+            // The cargo screen is still active and enabled.  I believe this works as
+            //  none of the screens or buttons use hotkeys.
+            if ((cargoScreen == null) || !UI.GetActiveViews().Contains(cargoScreen)) return;
 
             if (Input.GetKeyUp(Plugin.Config.SortToTabsKey))
             {
-                Sort(__instance);
+                Sort(cargoScreen);
             }
 
             if (Input.GetKeyUp(Plugin.Config.TabSortKey))
             {
-                __instance.SortArsenalButtonOnOnClick(null,1);
+                cargoScreen.SortArsenalButtonOnOnClick(null, 1);
             }
         }
     }

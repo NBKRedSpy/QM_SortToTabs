@@ -92,10 +92,19 @@ namespace QM_SortToTabs
                 try
                 {
                     string configText = File.ReadAllText(configPath);
-
                     config = JsonConvert.DeserializeObject<ModConfig>(configText);
 
-                    config.ConfigUpgrade(configPath);
+                    if(config.ConfigUpgrade(configPath))
+                    {
+                        //Reset the config.
+                        config = new ModConfig();
+                        config.SetDefaults();
+
+                        SaveConfig(configPath, config);
+
+                        return config;
+                    }
+
 
                     //Update file if there are json properties missing.
                     string updatedConfig = JsonConvert.SerializeObject(config, JsonSettings);
@@ -111,7 +120,7 @@ namespace QM_SortToTabs
                     Debug.LogException(ex);
 
                     //Just use the default config without overwriting the config file.  In case the user
-                    //  made a simple typeo such as missing a comma.
+                    //  made a simple typo such as missing a comma.
                     config = new ModConfig();
                     config.SetDefaults();
                     return config;
@@ -158,38 +167,31 @@ namespace QM_SortToTabs
         }
 
 
-        private void ConfigUpgrade(string configPath)
+        /// <summary>
+        /// Executes any config upgrades required for older versions of the config
+        /// </summary>
+        /// <param name="configPath">The full path to the config file.</param>
+        /// <returns>true if an upgraded was required and executed</returns>
+        private bool ConfigUpgrade(string configPath)
         {
-            if (Version == CurrentConfigVersion) return;
+            //Version 2 was the first version that the config format changed.
+            if (Version >= 2) return false;
 
+            string backupPath = configPath + ".upgrade-backup";
+
+            Debug.LogWarning($"[QM_SortToTabs] WARN the config is incompatible with the latest version and has been reset.  A backup of the old config can be found at '{backupPath}'");
+
+            //TODO: This should be a UI prompt, but leaving for now.  Can check with the existence of a backup file for debugging.
             //Make a backup
-            File.Copy(configPath, configPath + ".upgrade-backup", true);
+            File.Copy(configPath, backupPath, true);
 
-            Plugin.AskForConfigReset = true;
+            //Removing this, just deleting instead.  Hopefully no longer needed.
+            //Simplifies the UI.
 
-            var recordTranslations = new Dictionary<string, string>()
-            {
-                { "AutomapRecord", "DeviceRecord" },
-                { "FoodRecord", "ConsumableRecord" },
-                { "MedkitRecord", "FixationMedicineRecord" },
-                { "MineRecord", "PlaceableDeviceRecord" },
-                { "TurretRecord", "PlaceableDeviceRecord" }
-            };
-
-            TabMappings.Where(x => recordTranslations.ContainsKey(x.ItemMatch.RecordType))
-                .ToList()
-                .ForEach(x => x.ItemMatch.RecordType = recordTranslations[x.ItemMatch.RecordType]);
-
-            //Quasi Artifact:  Quasi artifact only had one item, and the resurrect kit has no direct mapping.  
-            //  It's unlikely that either were used, so remove them.
-            TabMappings
-                .Where(x => 
-                    x.ItemMatch.RecordType == "QuasiArtifactRecord" ||
-                    x.ItemMatch.RecordType == "ResurrectKitRecord")
-                .ToList()
-                .ForEach(x => TabMappings.Remove(x));
+            File.Delete(configPath);
 
             Version = CurrentConfigVersion;
+            return true;
         }
 
     }

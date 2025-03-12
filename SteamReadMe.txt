@@ -1,6 +1,16 @@
 [h1]Quasimorph Sort To Tabs[/h1]
 
 
+[h1]Important - This is only for the opt in beta version of the game![/h1]
+
+This is a temporary version that supports the 0.8.6 beta, and not the current game's version.
+The non beta version [i]must[/i] be uninstalled.
+When the 0.8.6 becomes the main version, this mod will be deleted.
+Note that the beta is expected to change many times before release.
+As such, this mod may break on each beta release.
+
+[h1]Docs[/h1]
+
 A mod to automatically move items to specific tabs using rules defined by the user.
 
 For example, weapons to the first tab, ammo on the second, armor on the third, etc.
@@ -11,10 +21,8 @@ The rules and hotkeys can be changed in the configuration file.  See the Configu
 
 [h1]Previous Users[/h1]
 
-Users that have used the mod before Quasimorph 0.8.5 will be prompted to reset the item rules.
-It is recommended to do the reset.  Regardless of the choice, the previous config file will be backed up to [i]%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph_ModConfigs\QM_SortToTabs\QM_SortToTabs.json.upgrade-backup[/i].
-
-The mod can be reset to the new defaults at any time by deleting the config file located at [i]%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph_ModConfigs\QM_SortToTabs\QM_SortToTabs.json[/i]
+Users that have used the mod before Quasimorph 0.8.5 Will have their rules reset due to config changes.
+The previous config file will be backed up to [i]%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph_ModConfigs\QM_SortToTabs\QM_SortToTabs.json.upgrade-backup[/i].
 
 [h2]Default Rules[/h2]
 
