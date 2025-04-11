@@ -38,24 +38,7 @@ namespace QM_SortToTabs
             Config = ModConfig.LoadConfig(ConfigDirectories.ConfigPath);
 
             //------ Patching
-            Harmony harmony = new Harmony("nbk_redspy.SortToTabs");
-
-            //Have to patch object since the Process function is overridden.
-
-            harmony.Patch(
-                AccessTools.Method(typeof(AfterRaidScreen), nameof(AfterRaidScreen.Process)),
-                new HarmonyMethod(typeof(CargoScreenUtil), nameof(CargoScreenUtil.ProcessSortLoop))
-                );
-
-            harmony.Patch(
-                AccessTools.Method(typeof(ArsenalScreen), nameof(ArsenalScreen.Process)),
-                new HarmonyMethod(typeof(CargoScreenUtil), nameof(CargoScreenUtil.ProcessSortLoop))
-                );
-
-            harmony.Patch(
-                AccessTools.Method(typeof(FastTradeScreen), nameof(FastTradeScreen.Process)),
-                new HarmonyMethod(typeof(CargoScreenUtil), nameof(CargoScreenUtil.ProcessSortLoop))
-                );
+            Harmony harmony = new Harmony("nbk_redspy.SortToTabs_beta");
 
             harmony.PatchAll();
         }
