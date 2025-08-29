@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using MGSC;
+using QM_SortToTabs.Mcm;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,6 +23,11 @@ namespace QM_SortToTabs
         /// </summary>
         public static bool AskForConfigReset { get; set; } = false;
 
+        public static Logger Logger { get; private set; } = new Logger();
+
+        private static McmConfiguration McmConfiguration;
+
+
         [Hook(ModHookType.AfterConfigsLoaded)]
         public static void AfterConfig(IModContext context)
         {
@@ -36,6 +42,9 @@ namespace QM_SortToTabs
             Directory.CreateDirectory(ConfigDirectories.ModPersistenceFolder);
 
             Config = ModConfig.LoadConfig(ConfigDirectories.ConfigPath);
+
+            McmConfiguration = new McmConfiguration(Config, Plugin.Logger);
+            McmConfiguration.TryConfigure();
 
             //------ Patching
             Harmony harmony = new Harmony("nbk_redspy.SortToTabs_beta");

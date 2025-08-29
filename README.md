@@ -12,10 +12,6 @@ Press F5 to apply the move rules for the items on that tab.  Press S to invoke t
 
 The rules and hotkeys can be changed in the configuration file.  See the [Configuration](#configuration) section below.
 
-# Previous Users
-Users that have used the mod before Quasimorph 0.8.5 Will have their rules reset due to config changes.
-The previous config file will be backed up to `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph_ModConfigs\QM_SortToTabs\QM_SortToTabs.json.upgrade-backup`.  
-
 ## Default Rules
 The default rules are:
 
@@ -39,6 +35,8 @@ Thanks!
 # Configuration
 
 ## Files
+
+This mod supports the Mod Configuration Menu.  Some of the values can be configured in the Mods folder, while others can only be changed in the config file.
 
 The configuration file will be created on the first game run and can be found at `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph_ModConfigs\QM_SortToTabs\QM_SortToTabs.json`.  
 
@@ -149,7 +147,11 @@ The config option`DebugLogMatches` can be enabled to log which rule matched the 
 
 The game's log can be found here `%AppData%\..\LocalLow\Magnum Scriptum Ltd\Quasimorph\Player.log`
 
+# Change Log
+Due to Steam's Workshop description character limit, the change log can be found [here](https://github.com/NBKRedSpy/QM_SortToTabs/blob/master/CHANGELOG.md)
+
 # Credits
+* Special thanks to Crynano for his excellent Mod Configuration Menu. 
 * Thanks to GitHub user WiliamRogers1886 for providing an interim 0.8.5 patch.
 
 # Source Code

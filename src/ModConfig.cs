@@ -8,11 +8,12 @@ using JetBrains.Annotations;
 using MGSC;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using QM_SortToTabs.Mcm;
 using UnityEngine;
 
 namespace QM_SortToTabs
 {
-    public class ModConfig
+    public class ModConfig : IMcmConfigTarget
     {
 
         private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings()
@@ -139,6 +140,11 @@ namespace QM_SortToTabs
             return config;
 
 
+        }
+
+        public void Save()
+        {
+            SaveConfig(Plugin.ConfigDirectories.ConfigPath, this);
         }
 
         private static void SaveConfig(string configPath, ModConfig config)
